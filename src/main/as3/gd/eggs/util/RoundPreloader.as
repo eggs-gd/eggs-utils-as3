@@ -18,7 +18,7 @@ package  gd.eggs.util
 
 
 	/**
-	 * кружочки по радиу�?у, по таймеру мен�?ем альфу по кругу
+	 * кружочки по радиусу, по таймеру меняем альфу по кругу
 	 * @author silin
 	 */
 	public class RoundPreloader extends Sprite
@@ -30,10 +30,10 @@ package  gd.eggs.util
 
 		/**
 		 * constructor
-		 * @param    size        размер о�?новоного кргуга
+		 * @param    size        размер основоного кргуга
 		 * @param    color        цвет
 		 * @param    alpha        альфа
-		 * @param    delay        задержка пере�?тановки альфы кружков
+		 * @param    delay        задержка перестановки альфы кружков
 		 */
 		public function RoundPreloader(size:int = 100, color:int = 0x808080, alpha:Number = 0.8, delay:int = 80)
 		{
@@ -88,13 +88,11 @@ package  gd.eggs.util
 		}
 
 		/**
-		 * надпи�?ь (по центру)
+		 * надпись (по центру)
 		 */
-		public function get label():String
-		{ return _label.text; }
+		public function get label():String { return _label.text; }
 
-		public function set label(value:String):void
-		{
+		public function set label(value:String):void {
 			_label.text = value;
 			_label.x = -_label.width / 2;
 			_label.y = -_label.height / 2;

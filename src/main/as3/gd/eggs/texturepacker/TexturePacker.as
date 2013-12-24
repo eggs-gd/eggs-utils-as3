@@ -7,9 +7,6 @@
 	import flash.utils.getDefinitionByName;
 
 
-	//import starling.textures.Texture;
-	//import starling.textures.TextureAtlas;
-
 	/**
 	 * Фабрика тек�?тур. Кеширует новую тек�?туру из мувиклипа, потом ее же может выдать по запро�?у.
 	 * Поддерживает групповое кеширование из хмл �?пи�?ка.
