@@ -34,12 +34,6 @@
 			<version>1.2</version>
 			<type>swc</type>
 		</dependency>
-		<dependency>
-			<groupId>starling</groupId>
-			<artifactId>starling</artifactId>
-			<version>1.0</version>
-			<type>swc</type>
-		</dependency>
 	</dependencies>
 
 	<repositories>
