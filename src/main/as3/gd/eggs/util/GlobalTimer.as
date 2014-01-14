@@ -20,67 +20,46 @@ package gd.eggs.util
 		//=====================================================================
 		//      PARAMETERS
 		//=====================================================================
-		private static var _instance:GlobalTimer;
-
 		//-----------------------------
 		//      Enterfrtame
 		//-----------------------------
-		private var _visualBus:Sprite;
+		private static var _visualBus:Sprite = new Sprite();
 
 		//-----------------------------
 		//      Timer
 		//-----------------------------
-		private var _currentDate:Date;
-		private var _timer:Timer;
-		private var _synced:Boolean;
+		private static var _currentDate:Date;
+		private static var _timer:Timer = new Timer(1000);
+		private static var _synced:Boolean;
 
 		//-----------------------------
 		//      Callbacks
 		//-----------------------------
-		private var _timerCallBacks:Vector.<Function>;
-		private var _frameCallBacks:Vector.<Function>;
-		//=====================================================================
-		//      CONSTRUCTOR, INIT
-		//=====================================================================
-		public function GlobalTimer()
-		{
-			if (_instance) throw new Error("singleton");
-
-			_timer = new Timer(1000);
-			_timerCallBacks = new Vector.<Function>();
-
-			_visualBus = new Sprite();
-			_frameCallBacks = new Vector.<Function>();
-		}
-
-		public static function getInstance():GlobalTimer
-		{
-			if (!_instance) _instance = new GlobalTimer();
-			return _instance;
-		}
+		private static var _timerCallBacks:Vector.<Function> = new Vector.<Function>();
+		private static var _frameCallBacks:Vector.<Function> = new Vector.<Function>();
 
 		//=====================================================================
 		//      PUBLIC
 		//=====================================================================
 		public static function updateDate(date:Date):void
 		{
-			if (!_instance._timer.hasEventListener(TimerEvent.TIMER))
+			if (!_timer.hasEventListener(TimerEvent.TIMER))
 			{
-				_instance._timer.addEventListener(TimerEvent.TIMER, _instance.onTimer);
+				_timer.addEventListener(TimerEvent.TIMER, onTimer);
 			}
 
-			_instance._currentDate = date;
-			_instance._timer.reset();
-			_instance._timer.start();
+			_currentDate = date;
+			_timer.reset();
+			_timer.start();
 
-			_instance._synced = true;
+			_synced = true;
 		}
 
 		/**
 		 * Добавить коллбек ентерфрейма
 		 * @param       func function onTimer(date:Date):void {} // коллбек принимает текущую дату getTimer().
 		 */
-		public function addFrameCallback(func:Function):void
+		public static function addFrameCallback(func:Function):void
 		{
 			if (_frameCallBacks.indexOf(func) == -1)
 			{
@@ -98,7 +77,7 @@ package gd.eggs.util
 		 * Убрать коллбек энтерфрейма
 		 * @param       func
 		 */
-		public function removeFrameCallback(func:Function):void
+		public static function removeFrameCallback(func:Function):void
 		{
 			if (_frameCallBacks.indexOf(func) != -1)
 			{
@@ -115,14 +94,16 @@ package gd.eggs.util
 		 * @param       func function onTimer(unixtime:int):void {} // коллбек принимает текущую дату сервера.
 		 *              // текущую, которая установлена в таймере, а не в системеДля синхронизации с сервером.
 		 */
-		public function addTimerCallback(func:Function):void
+		public static function addTimerCallback(func:Function):void
 		{
+			if (!_synced) updateDate(new Date());
+
 			if (_timerCallBacks.indexOf(func) == -1)
 			{
 				_timerCallBacks.push(func);
 			}
 
-			if (_synced && !_timer.hasEventListener(TimerEvent.TIMER))
+			if (!_timer.hasEventListener(TimerEvent.TIMER))
 			{
 				_timer.addEventListener(TimerEvent.TIMER, onTimer);
 				_timer.start();
@@ -133,7 +114,7 @@ package gd.eggs.util
 		 * Убрать коллбек таймера
 		 * @param       func
 		 */
-		public function removeTimerCallback(func:Function):void
+		public static function removeTimerCallback(func:Function):void
 		{
 			if (_timerCallBacks.indexOf(func) != -1)
 			{
@@ -153,7 +134,7 @@ package gd.eggs.util
 		//=====================================================================
 		//      HANDLERS
 		//=====================================================================
-		private function onTimer(event:TimerEvent):void
+		private static function onTimer(event:TimerEvent):void
 		{
 			if (!_currentDate)return;
 			_currentDate.seconds++;
@@ -164,7 +145,7 @@ package gd.eggs.util
 			}
 		}
 
-		private function onEnterFrame(event:Event):void
+		private static function onEnterFrame(event:Event):void
 		{
 			for (var i:int = 0; i < _frameCallBacks.length; i++)
 			{
@@ -175,7 +156,7 @@ package gd.eggs.util
 		//=====================================================================
 		//      ACCESSORS
 		//=====================================================================
-		public function get currentDate():Date { return _currentDate; }
+		public static function get currentDate():Date { return _currentDate; }
 	}
 
 }

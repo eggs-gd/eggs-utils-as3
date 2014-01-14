@@ -23,12 +23,6 @@
 			<type>swc</type>
 		</dependency>
 		<dependency>
-			<groupId>aze.motion.tween</groupId>
-			<artifactId>eaze-tween</artifactId>
-			<version>rc2</version>
-			<type>swc</type>
-		</dependency>
-		<dependency>
 			<groupId>org.serialization.bson</groupId>
 			<artifactId>lib-bson</artifactId>
 			<version>1.2</version>
