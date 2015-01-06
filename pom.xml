@@ -6,7 +6,7 @@
     <groupId>gd.eggs.as3.framework</groupId>
     <artifactId>eggs-utils-as3</artifactId>
     <name>eggs-utils-as3</name>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>swc</packaging>
 
 
@@ -59,6 +59,16 @@
                     </compilerWarnings>
                 </configuration>
 
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>sources</goal>
+                        </goals>
+                    </execution>
+                </executions>
+
                 <dependencies>
                     <dependency>
                         <groupId>com.adobe.flex</groupId>
@@ -68,43 +78,30 @@
                     </dependency>
                 </dependencies>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>2.3</version>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
 
     <repositories>
         <repository>
+            <id>artifactory</id>
+            <name>artifactory</name>
+            <url>http://artifactory.corp/artifactory/repo</url>
+        </repository>
+        <repository>
             <id>flex-mojos-repository</id>
             <name>flex-mojos-repository</name>
             <url>https://oss.sonatype.org/content/repositories/releases</url>
-        </repository>
-        <repository>
-            <id>artifactory-ext</id>
-            <name>artifactory-ext-release</name>
-            <url>http://artifactory.corp/artifactory/ext-release-local/</url>
         </repository>
     </repositories>
 
     <pluginRepositories>
         <pluginRepository>
             <id>flex-mojos-plugin-repository</id>
-            <url> https://oss.sonatype.org/content/repositories/releases</url>
+            <url>https://oss.sonatype.org/content/repositories/releases</url>
         </pluginRepository>
         <pluginRepository>
-            <id>artifactory-ext</id>
-            <url>http://artifactory.corp/artifactory/ext-release-local/</url>
+            <id>artifactory</id>
+            <url>http://artifactory.corp/artifactory/repo</url>
         </pluginRepository>
     </pluginRepositories>
 
